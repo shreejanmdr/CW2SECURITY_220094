@@ -40,22 +40,6 @@ exports.addToCart = async (req, res) => {
 };
 
 
-// Get all cart items
-// exports.getAllCartItems = async (req, res) => {
-//   const id = req.user.id;
-//   try {
-//     //  join cart with products
-//     const cartItems = await Cart.find({
-//       userId: id,
-//       status: "active",
-//     }).populate("productId");
-//     console.log(cartItems);
-//     res.status(200).json({ carts: cartItems });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
 exports.getAllCartItems = async (req, res) => {
   const id = req.user.id;
   try {
