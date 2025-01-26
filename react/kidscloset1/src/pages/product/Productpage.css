@@ -1,0 +1,88 @@
+/* Productpage.css */
+
+/* Carousel */
+.carousel-item img {
+  height: 400px;
+  object-fit: cover;
+}
+
+/* Search Bar */
+.input-group {
+  position: relative;
+}
+
+.input-group button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+/* Products */
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.price-tag {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Additional Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+/* Apply fadeIn animation to elements */
+.animated-fadeIn {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Apply slideIn animation to elements */
+.animated-slideIn {
+  animation: slideIn 0.5s ease forwards;
+}
+
+
+/* Productpage.css */
+
+/* Background color */
+.product-page-container {
+  background-color: #c6c1c1bd; /* Adjust as needed */
+  padding: 20px; /* Add padding for spacing */
+}
+
+/* Pagination style */
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination .page-item .page-link {
+  color: #333; /* Text color for page numbers */
+  background-color: #ddd; /* Background color for page numbers */
+  border-color: #ccc; /* Border color for page numbers */
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff; /* Active page background color */
+  border-color: #007bff; /* Active page border color */
+  color: #fff; /* Active page text color */
+}

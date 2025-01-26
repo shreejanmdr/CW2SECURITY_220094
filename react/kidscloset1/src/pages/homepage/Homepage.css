@@ -1,0 +1,64 @@
+.homepage-bg {
+    background-color: #f7f7f7; /* Use a light grey background for a more modern look */
+  }
+  
+  .h2 {
+    font-size: 2rem;
+  }
+  
+  .homepage-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    line-height: 1.2;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    color: #333; /* Use a dark grey color for the title */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Reduce the text shadow intensity */
+  }
+  
+  .homepage-description {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.4rem;
+    color: #555; /* Use a slightly darker grey color for the description */
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .lead {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.4rem;
+    color: #555;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: left;
+  }
+  
+  .homepage-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 1rem 2rem;
+    background-color: #7849ff; /* Use the brand color as the button background */
+    color: #fff; /* Use white text for better contrast */
+    border: none;
+    transition: all 0.3s ease; /* Add a smooth transition effect */
+  }
+  
+  .homepage-btn:hover {
+    background-color: #6337e0; /* Darken the brand color on hover */
+    transform: translateY(-2px); /* Add a subtle lift effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+  }
+  
+  .homepage-btn.btn-outline-light {
+    background-color: transparent;
+    color: #7849ff;
+    border: 2px solid #7849ff;
+  }
+  
+  .homepage-btn.btn-outline-light:hover {
+    background-color: #7849ff;
+    color: #fff;
+  }

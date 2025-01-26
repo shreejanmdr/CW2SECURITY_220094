@@ -1,0 +1,181 @@
+/* General Styles */
+.background {
+  background-color: #e7f1fc; /* Light blue background for a clean look */
+  padding: 20px;
+  min-height: 100vh; /* Ensure the background covers the whole viewport */
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border: 1px solid #dcdcdc; /* Subtle border to define edges */
+  border-radius: 5px; /* Rounded corners for a softer look */
+}
+
+.product-details {
+  background: #ffffff; /* White background for contrast */
+  border: 1px solid #dcdcdc; /* Light gray border for definition */
+  border-radius: 8px; /* Slightly rounded corners for modern design */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid #dcdcdc; /* Border to define the selector */
+  border-radius: 5px; /* Rounded corners for consistency */
+  padding: 5px;
+}
+
+.quantity-selector button {
+  width: 40px; /* Larger buttons for better accessibility */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background-color: #007bff; /* Primary color for buttons */
+  color: #fff; /* White text for contrast */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quantity-selector button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.quantity-selector span {
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  display: inline-block;
+  margin: 5px; /* Added margin for spacing */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Primary color */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Secondary color */
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268; /* Darker shade on hover */
+}
+
+.btn-success {
+  background-color: #28a745; /* Success color */
+}
+
+.btn-success:hover {
+  background-color: #218838; /* Darker shade on hover */
+}
+
+/* Payment Modals */
+.payment-modal,
+.payment-method-modal,
+.order-placed-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.payment-modal-content,
+.payment-method-modal-content,
+.order-placed-modal-content {
+  background-color: #ffffff; /* White background for clarity */
+  padding: 20px;
+  border-radius: 8px; /* Rounded corners for consistency */
+  width: 90%;
+  max-width: 600px; /* Maximum width for readability */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  z-index: 1100;
+}
+
+.payment-method-modal-content {
+  z-index: 1200; /* Ensure it is above other modals */
+  padding: 30px; /* Added padding for better look */
+  border: 1px solid #dcdcdc; /* Border for definition */
+  text-align: center; /* Centered text */
+}
+
+.order-placed-modal-content {
+  z-index: 1200; /* Ensure it is above other modals */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px; /* Added padding for better look */
+  border: 1px solid #dcdcdc; /* Border for definition */
+}
+
+.payment-method-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+  margin-bottom: 20px; /* Space below buttons */
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.modal-product-image {
+  width: 100px; /* Fixed size for consistency */
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.user-info h5 {
+  font-weight: bold; /* Bold for emphasis */
+  margin-bottom: 10px;
+}
+
+.user-info p {
+  margin-bottom: 10px;
+}
+
+.user-info input,
+.user-info select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #dcdcdc; /* Light border for fields */
+  border-radius: 4px; /* Slightly rounded corners */
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}

@@ -1,0 +1,21 @@
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  margin-left: 10px;
+}
+
+.nav-link {
+  font-size: 1.1em;
+}
+
+.btn-outline-primary {
+  margin-right: 10px;
+}
+
+.dropdown-menu-end {
+  right: 0;
+  left: auto;
+}

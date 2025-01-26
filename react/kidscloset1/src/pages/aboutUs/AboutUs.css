@@ -1,0 +1,89 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.about-us-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: url('https://assets-global.website-files.com/61e7be6e6f17f5346fc7ec9f/61e7be6f6f17f5a75bc7ed68_background-sign-in-tech-ui-kit-webflow-template.svg') no-repeat center center fixed;
+    background-size: cover;
+    padding: 20px;
+    margin-top: 60px; /* Adjust this value based on your navbar height */
+}
+
+.about-us-content {
+    flex: 1; /* Allow content to grow and push the footer to the bottom */
+    max-width: 1200px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 0 auto; /* Center the content */
+}
+
+.about-us-logo img {
+    max-width: 200px;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.about-us-content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.about-us-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.about-us-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.box h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.box p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Footer Styling */
+.footer {
+    position: relative;
+    width: 100%;
+    background: #023889;
+    min-height: 100px;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff; /* Ensure text color is visible */
+}
+
+.footer p {
+    margin: 15px 0 10px 0;
+    font-size: 1rem;
+    font-weight: 300;
+}

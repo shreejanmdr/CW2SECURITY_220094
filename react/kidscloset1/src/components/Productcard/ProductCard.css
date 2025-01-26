@@ -1,0 +1,68 @@
+.product-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img {
+    transition: opacity 0.3s;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.product-card img:hover {
+    opacity: 0.8;
+}
+
+.product-card .btn-primary,
+.product-card .btn-outline-primary,
+.product-card .btn-outline-danger,
+.product-card .btn-outline-secondary {
+    transition: background-color 0.3s, border-color 0.3s;
+    border-radius: 50px;
+    margin-right: 0.5rem;
+}
+
+.product-card .btn-primary:hover,
+.product-card .btn-outline-primary:hover,
+.product-card .btn-outline-danger:hover,
+.product-card .btn-outline-secondary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+    color: white;
+}
+
+.product-card .price-tag {
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+
+   
+    text-align: center;
+}
+
+.product-card .price-tag:hover {
+    background-color: #0056b3; 
+    color: #fff; 
+}
+
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
