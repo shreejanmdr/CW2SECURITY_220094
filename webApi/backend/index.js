@@ -12,7 +12,7 @@ const fs = require('fs');
 const app = express();
 
 
-//configure Cors policy
+//configuring Cors policy
 const corsOptions = {
     origin:true,
     credentials:true,
