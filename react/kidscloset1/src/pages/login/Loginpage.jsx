@@ -113,6 +113,11 @@ const LoginPage = () => {
               store. Elevate your child's everyday experiences with quality
               products delivered to your doorstep, ensuring comfort and
               happiness in every purchase...
+              <br />
+              <br />
+              <Link to="/register" className="btn btn-warning">
+                Register Now
+              </Link>
             </p>
           </div>
 
