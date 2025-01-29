@@ -15,11 +15,11 @@ const Sidebar = ({ openAddProductModal }) => {
             <div className="d-flex flex-column align-items-start">
                 <div className="d-flex align-items-center gap-2 mb-0 sidebar-brand">
                     <Link to="/" className="d-flex align-items-center gap-2 text-dark text-decoration-none">
-                        <span className="font-weight-bold h3 mb-0 ml-0">Closet</span>
+                       {/* <span className="font-weight-bold h3 mb-0 ml-0">Sano Sansar</span> */}
                         <img
-                            src="../assets/images/leaves.png"
+                            src="../assets/images/sanosansar1.png"
                             alt="cart"
-                            width="60"
+                            width="190"
                             height="40"
                             className="d-inline-block align-text-top"
                         />
