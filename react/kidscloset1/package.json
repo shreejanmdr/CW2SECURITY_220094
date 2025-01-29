@@ -29,7 +29,9 @@
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.12",
     "use-count-up": "^3.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "winston": "^3.17.0",
+    "winston-mongodb": "^6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
