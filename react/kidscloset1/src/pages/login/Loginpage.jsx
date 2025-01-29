@@ -9,7 +9,8 @@ import "../../pages/login/Loginpage.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const siteKey = "6Lfdab8qAAAAADzTjd87esA4qUA1ezYJs5XLim_D"; // Your reCAPTCHA site key
+  // reCAPTCHA site key
+  const siteKey = "6Lfdab8qAAAAADzTjd87esA4qUA1ezYJs5XLim_D"; 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
