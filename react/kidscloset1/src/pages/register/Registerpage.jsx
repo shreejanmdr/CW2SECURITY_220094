@@ -5,6 +5,8 @@ import { registerUserApi } from "../../apis/Api";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import PasswordStrengthChecker from '../pswd/PasswordStrengthChecker';
+
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [captchaToken, setCaptchaToken] = useState(null);
+
+  
 
   // State for error messages
   const [nameError, setNameError] = useState("");
@@ -33,6 +37,7 @@ const RegisterPage = () => {
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePhone = (e) => setPhone(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
+ // const handlePasswordChange = (e) => {setPassword(e.target.value);
   const handleConfirmPassword = (e) => setConfirmPassword(e.target.value);
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
@@ -167,6 +172,16 @@ const RegisterPage = () => {
               <div className="card-body py-4 px-md-5">
                 <h1 className="text-center fw-bold mb-4">Sign Up</h1>
                 <form onSubmit={handleSubmit}>
+                {/* <div className="app">
+                <input
+                type="password"
+                placeholder="Enter password..."
+                value={password}
+                onChange={handlePasswordChange}
+                 className="password-input"
+                />
+               <PasswordStrengthChecker value={password} />
+                </div> */}
                   <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="form3Example1">
                       Full Name
