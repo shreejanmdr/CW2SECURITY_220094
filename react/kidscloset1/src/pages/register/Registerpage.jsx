@@ -5,7 +5,8 @@ import { registerUserApi } from "../../apis/Api";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-import PasswordStrengthChecker from '../pswd/PasswordStrengthChecker';
+import PasswordStrengthBar from "react-password-strength-bar";
+//import PasswordStrengthChecker from '../pswd/PasswordStrengthChecker';
 
 
 const RegisterPage = () => {
@@ -268,11 +269,11 @@ const RegisterPage = () => {
                         ></i>
                       </span>
                     </div>
+                    <PasswordStrengthBar password={password} /> {/* Password Strength Bar */}
                     {passwordError && (
                       <span className="text-danger">{passwordError}</span>
                     )}
                   </div>
-
                   <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="form3Example6">
                       Confirm Password
@@ -299,6 +300,7 @@ const RegisterPage = () => {
                         ></i>
                       </span>
                     </div>
+                    <PasswordStrengthBar password={password} /> {/* Password Strength Bar */}
                     {confirmPasswordError && (
                       <span className="text-danger">
                         {confirmPasswordError}
@@ -342,3 +344,5 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+
+
