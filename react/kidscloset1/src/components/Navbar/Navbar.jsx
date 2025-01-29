@@ -20,11 +20,11 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-0 mt-0">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand d-flex align-items-center">
-            <span className="font-weight-bold h4 mb-0">Closet</span>
+            {/* <span className="font-weight-bold h4 mb-0">Closet</span> */}
             <img
-              src="../assets/images/leaves.png"
+              src="../assets/images/sanosansar1.png"
               alt="logo"
-              width="60"
+              width="190"
               height="40"
               className="d-inline-block align-text-top ms-2"
             />
