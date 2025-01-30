@@ -316,7 +316,7 @@ const Contact = () => {
 
         <ContactDetails className="contact-details">
           <h2>Contact Information</h2>
-          <p><strong>Email:</strong> support@KidsCloset.com</p>
+          <p><strong>Email:</strong> support@SanoSansar.com</p>
           <p><strong>Phone:</strong> +977 9876543210</p>
           <p><strong>Address:</strong> DilliBazar, Softwarica College Of IT And Ecommerce</p>
         </ContactDetails>
