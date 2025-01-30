@@ -24,7 +24,7 @@ const Homepage = () => {
     >
       <div className="container text-center text-white">
         <h2 className="display-3 mb-1 homepage-title color-black ">Welcome to </h2>
-        <h1 className="display-3 mb-1 homepage-title color-black "> Closet</h1>
+        <h1 className="display-3 mb-1 homepage-title color-black "> Sano Sansar</h1>
         <p className="text-start lead homepage-descriptio color-black ">
           Discover a wide range of products for your
         </p>
