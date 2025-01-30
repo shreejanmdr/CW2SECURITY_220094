@@ -157,7 +157,7 @@ const RegisterPage = () => {
         <div className="row gx-lg-5 align-items-start">
           <div className="col-lg-5 mb-5 mb-lg-0 mt-5">
             <h1 className="my-5 display-4 fw-bold text-light">
-              Bright Beginnings, Easy Shopping
+              Register Now ..... Easy Shopping
             </h1>
             <h2 className="text-warning mb-4">Discover Joyful Essentials!</h2>
             <p style={{ color: "white" }}>
@@ -171,7 +171,15 @@ const RegisterPage = () => {
           <div className="col-lg-6">
             <div className="card shadow-lg">
               <div className="card-body py-4 px-md-5">
-                <h1 className="text-center fw-bold mb-4">Sign Up</h1>
+                <h1 className="text-center fw-bold mb-4">
+                            <img
+                              src="../assets/images/sanosansar1.png"
+                              alt="logo"
+                              width="190"
+                              height="40"
+                              className="d-inline-block align-text-top ms-2  px-2"
+                            />
+                          </h1>
                 <form onSubmit={handleSubmit}>
                 {/* <div className="app">
                 <input
