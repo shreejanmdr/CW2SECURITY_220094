@@ -17,9 +17,11 @@ const corsOptions = {
     origin:true,
     credentials:true,
     optionSucessStatus:200,
+    allowedHeaders:["Content-Type", "Authorization"],
     
 }
 app.use(cors(corsOptions))
+
 
 // Express Json Config
 app.use(express.json())
