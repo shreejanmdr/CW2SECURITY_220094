@@ -308,7 +308,7 @@ const RegisterPage = () => {
                         ></i>
                       </span>
                     </div>
-                    <PasswordStrengthBar password={password} /> {/* Password Strength Bar */}
+                  <PasswordStrengthBar password={password} /> {/* Password Strength Bar */}
                     {confirmPasswordError && (
                       <span className="text-danger">
                         {confirmPasswordError}

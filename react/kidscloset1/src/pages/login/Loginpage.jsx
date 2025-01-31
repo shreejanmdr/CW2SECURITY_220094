@@ -20,6 +20,10 @@ const LoginPage = () => {
   const [passwordError, setPasswordError] = useState("");
 
   const [passwordVisible, setPasswordVisible] = useState(false);
+  // const [lockoutTime, setLockoutTime] = useState(null);
+  // const [remainingAttempts, setRemainingAttempts] = useState(null);
+  // const [loading, setLoading] = useState(false);
+
 
   // Validation
   const validation = () => {

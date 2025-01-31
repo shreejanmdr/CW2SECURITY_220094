@@ -35,13 +35,21 @@ const userSchema = new mongoose.Schema({
       type:Date,
       default:null
     },
+    loginAttempts: {
+      type: Number,
+      default: 0, // Track the number of failed login attempts
+    },
+  
 
     failedAttempts: { type: Number, default: 0 }, 
     
     // Tracks login attempts
-    lockUntil: { type: Date, default: null },  
+    lockUntil: { type: Date, default: null }, 
+     }, 
+     
+     { timestamps: true });
 
-})
+// })
 
 const User = mongoose.model('users', userSchema);
 module.exports = User;
