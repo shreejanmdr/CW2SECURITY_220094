@@ -1,7 +1,7 @@
 // Imporing the packages (express)
 const express = require('express');
 const mongoose = require('mongoose');
-const connectDatabase = require('./database/database');
+const connectDatabase = require('../database/database.js');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const acceptFormData = require('express-fileupload');
