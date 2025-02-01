@@ -207,7 +207,7 @@ const AdminDashboard = () => {
                         <tr key={singleProduct._id}>
                             <td>
                                 <img
-                                    src={`http://localhost:5000/products/${singleProduct.productImage}`}
+                                    src={`https://localhost:5000/products/${singleProduct.productImage}`}
                                     alt="product"
                                     className="img-fluid rounded"
                                     style={{ width: '100px', height: '100px', borderRadius: '10px' }}
