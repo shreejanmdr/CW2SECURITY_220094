@@ -107,7 +107,7 @@ function App() {
 
         {/* User Routes */}
         <Route element={<UserRoutes />}>
-          <Route path="/product" element={<Productpage/>} />
+          
           <Route path="/profile" element={<Profile/>} />
           <Route path="/logout" element={() => {localStorage.removeItem('user'); window.location.reload()}} />
           <Route path="/cart" element={<cart/>} />
@@ -116,7 +116,7 @@ function App() {
         <Route path="/view_product/:id" element={<ViewProduct />}/>
         
           <Route path='/profile' element={<Profile />} />
-          
+          <Route path="/product" element={<Productpage/>} />
           <Route path='/my_cart' element={<MyCart/>} />
       
           
