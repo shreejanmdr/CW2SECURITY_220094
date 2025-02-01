@@ -142,7 +142,7 @@ const UpdateProduct = () => {
                     </form>
                     <div className='image section mt-4'>
                         <h6>Previewing old img</h6>
-                        <img  height={'200px'} width={'300px'} src={`http://localhost:5000/products/${oldImage}`} alt="preview image" className='img-fluid rounded-4 object-fit-cover' />
+                        <img  height={'200px'} width={'300px'} src={`https://localhost:5000/products/${oldImage}`} alt="preview image" className='img-fluid rounded-4 object-fit-cover' />
                    
                         {
                             previewNewImage && <>
