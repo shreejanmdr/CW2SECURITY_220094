@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { loginUserApi } from "../../apis/Api";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,8 +10,7 @@ import "../../pages/login/Loginpage.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  // reCAPTCHA site key
-  const siteKey = "6Lfdab8qAAAAADzTjd87esA4qUA1ezYJs5XLim_D"; 
+  const siteKey = "6Lfdab8qAAAAADzTjd87esA4qUA1ezYJs5XLim_D"; // reCAPTCHA site key
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,15 +20,28 @@ const LoginPage = () => {
   const [passwordError, setPasswordError] = useState("");
 
   const [passwordVisible, setPasswordVisible] = useState(false);
-  // const [lockoutTime, setLockoutTime] = useState(null);
-  // const [remainingAttempts, setRemainingAttempts] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  
+  // Lockout state and timer
+  const [remainingAttempts, setRemainingAttempts] = useState(null);
+  const [lockTime, setLockTime] = useState(null);
+  const [timer, setTimer] = useState(null);
 
+  useEffect(() => {
+    // Timer countdown for lockout time
+    if (lockTime && timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    } else if (timer === 0) {
+      setLockTime(null);
+      setTimer(null);
+    }
+  }, [lockTime, timer]);
 
   // Validation
   const validation = () => {
     let isValid = true;
-
     if (email.trim() === "" || !email.includes("@")) {
       setEmailError("Email is empty or invalid");
       isValid = false;
@@ -51,6 +64,7 @@ const LoginPage = () => {
     return isValid;
   };
 
+  // Handle login attempt
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -61,30 +75,40 @@ const LoginPage = () => {
     const data = {
       email: email,
       password: password,
+      captchaToken: captchaToken,
     };
 
     // Make API request
     loginUserApi(data)
       .then((res) => {
         if (res.data.success === false) {
-          toast.error(res.data.message);
+          if (res.data.message === "Account locked") {
+            // Handle lockout message and start countdown timer
+            const lockDuration = res.data.remainingTime; // in seconds
+            setLockTime(lockDuration);
+            setTimer(lockDuration);
+            toast.error(`Your account is locked. Try again in ${lockDuration} seconds.`);
+          } else if (res.data.message === "Password not matched!") {
+            // Track remaining attempts
+            setRemainingAttempts(res.data.remainingAttempts);
+            toast.error(`Password incorrect! ${res.data.remainingAttempts} attempt(s) left.`);
+          } else {
+            toast.error(res.data.message);
+          }
         } else {
-          toast.success(res.data.message);
-          navigate("/admin/dashboard");
-
-          // Setting token and user data in local storage
+          // Successful login
+          toast.success("Login successful!");
           localStorage.setItem("token", res.data.token);
-
-          // Setting user data
-          const convertedData = JSON.stringify(res.data.userData);
-          localStorage.setItem("user", convertedData);
+          localStorage.setItem("user", JSON.stringify(res.data.userData));
+          navigate("/admin/dashboard");
         }
       })
       .catch((err) => {
         console.log(err);
-
-        if (err.response.status === 400 || 500) {
+        if (err.response) {
           toast.error(err.response.data.message);
+        } else {
+          toast.error("An error occurred. Please try again.");
         }
       });
   };
@@ -144,9 +168,7 @@ const LoginPage = () => {
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
-                    {emailError && (
-                      <p className="text-danger">{emailError}</p>
-                    )}
+                    {emailError && <p className="text-danger">{emailError}</p>}
                   </div>
 
                   <div className="form-outline mb-4">
@@ -177,9 +199,7 @@ const LoginPage = () => {
                         ></i>
                       </button>
                     </div>
-                    {passwordError && (
-                      <p className="text-danger">{passwordError}</p>
-                    )}
+                    {passwordError && <p className="text-danger">{passwordError}</p>}
                   </div>
 
                   <div className="form-outline mb-4">
@@ -198,6 +218,7 @@ const LoginPage = () => {
                       borderColor: "#28a745",
                       transition: "background-color 0.3s ease",
                     }}
+                    disabled={lockTime > 20} // Disable button during lockout
                   >
                     SIGN IN
                   </button>
@@ -219,6 +240,20 @@ const LoginPage = () => {
                       Forgot password?
                     </Link>
                   </div>
+
+                  {/* Show lockout timer */}
+                  {lockTime && timer > 0 && (
+                    <div className="text-center text-danger mt-3">
+                      Your account is locked. Try again in {timer} seconds.
+                    </div>
+                  )}
+
+                  {/* Show remaining attempts */}
+                  {remainingAttempts !== null && remainingAttempts > 0 && !lockTime && (
+                    <div className="text-center text-warning mt-3">
+                      You have {remainingAttempts} attempt(s) left before your account locks.
+                    </div>
+                  )}
                 </form>
               </div>
             </div>

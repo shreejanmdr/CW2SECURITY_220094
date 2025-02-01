@@ -71,6 +71,11 @@ userSchema.pre("save", async function (next) {
     });
   };
   
+// Add a virtual field to calculate if the user is currently locked
+userSchema.virtual("isLocked").get(function () {
+  return this.lockUntil && this.lockUntil > Date.now();
+});
+
   // Match user entered password to hashed password in database
   userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);

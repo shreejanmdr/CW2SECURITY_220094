@@ -6,6 +6,24 @@ const path = require("path");
 const fs = require("fs");
 const sendOtp = require('../service/sendOtp');
 
+// Given current total attempts, find lock time from the config
+const getLockTime = (attempts) => {
+  for (const config of LOCKOUT_CONFIG) {
+    if (attempts <= config.attempts) {
+      return config.lockTime;
+    }
+  }
+  return 0;
+};
+
+// Account Locking Features
+const LOCKOUT_CONFIG = [
+  { attempts: 5, lockTime: 15 * 1000 },       // Lock 15s after 5 attempts
+  { attempts: 10, lockTime: 60 * 1000 },      // Lock 1m after 10 attempts
+  { attempts: 15, lockTime: 5 * 60 * 1000 },  // Lock 5m after 15 attempts
+  { attempts: Infinity, lockTime: 60 * 60 * 1000 }, // 1h after 20+ attempts
+];
+
 const createUser = async (req,res) => {
     // 1. Check incomming data
     console.log(req.body);
@@ -71,73 +89,193 @@ const createUser = async (req,res) => {
     
 }
 
-// Login function
-const loginUser =  async (req,res) => {
+// // Login function
+// const loginUser =  async (req,res) => {
 
-    // Check incomming data
-    console.log(req.body)
+//     // Check incomming data
+//     console.log(req.body)
 
-    // Destructuring
-    const {email, password}  = req.body;
+//     // Destructuring
+//     const {email, password}  = req.body;
 
-    // Validation
-    if(!email || !password){
-        return res.status(400).json({
-            "success" : false,
-            "message" : "Please enter all fields!"
-        })
-    }
+//     // Validation
+//     if(!email || !password){
+//         return res.status(400).json({
+//             "success" : false,
+//             "message" : "Please enter all fields!"
+//         })
+//     }
 
 
-    // try catch
-    try {
+//     // try catch
+//     try {
 
-        // find user (email)
-        const user = await userModel.findOne({email : email})
-        // found data : firstName, lastname, email, password
+//         // find user (email)
+//         const user = await userModel.findOne({email : email})
+//         // found data : firstName, lastname, email, password
 
-        // not found (error message)
-        if(!user){
-            return res.status(400).json({
-                "success" : false,
-                "message" : "User not exists!"
-            })
-        }
+//         // not found (error message)
+//         if(!user){
+//             return res.status(400).json({
+//                 "success" : false,
+//                 "message" : "User not exists!"
+//             })
+//         }
 
-        // Compare password (bcrypt)
-        const isValidPassword = await bcrypt.compare(password,user.password)
+//         // Compare password (bcrypt)
+//         const isValidPassword = await bcrypt.compare(password,user.password)
 
-        // not valid (error)
-        if(!isValidPassword){
-            return res.status(400).json({
-                "success" : false,
-                "message" : "Password not matched!"
-            })
-        }   
+//         // not valid (error)
+//         if(!isValidPassword){
+//             return res.status(400).json({
+//                 "success" : false,
+//                 "message" : "Password not matched!"
+//             })
+//         }   
 
-        // token (Generate - user Data + KEY)
-        const token = await jwt.sign(
-            {id : user._id,isAdmin : user.isAdmin},
-            process.env.JWT_SECRET
-        )
+//         // token (Generate - user Data + KEY)
+//         const token = await jwt.sign(
+//             {id : user._id,isAdmin : user.isAdmin},
+//             process.env.JWT_SECRET
+//         )
 
-        // response (token, user data)
-        res.status(200).json({
-            "success" : true,
-            "message" : "Logged In Successfully!",
-            "token" : token,
-            "userData" : user
-        })
+//         // response (token, user data)
+//         res.status(200).json({
+//             "success" : true,
+//             "message" : "Logged In Successfully!",
+//             "token" : token,
+//             "userData" : user
+//         })
         
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({
-            "success" : false,
-            "message" : "Internal Server Error!"
-        })
-    }
+//     } catch (error) {
+//         console.log(error)
+//         return res.status(500).json({
+//             "success" : false,
+//             "message" : "Internal Server Error!"
+//         })
+//     }
     
-}
+// }
+
+// Login User Function
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+ 
+  // Check for missing fields
+  if (!email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "Please enter all fields!",
+    });
+  }
+ 
+  try {
+    const user = await userModel.findOne({ email });
+ 
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User does not exist!",
+      });
+    }
+ 
+    // Check if user is locked
+    if (user.isLocked) {
+      // If the lock time has passed, remove the lock but DO NOT reset attempts
+      if (user.lockUntil <= Date.now()) {
+        user.lockUntil = null;
+        // <-- IMPORTANT: do NOT reset user.loginAttempts here
+        await user.save();
+      } else {
+        // If user is still locked, respond with time remaining
+        const remainingTime = Math.ceil((user.lockUntil - Date.now()) / 1000);
+        return res.status(403).json({
+          success: false,
+          message: "Account is locked due to multiple failed login attempts.",
+          remainingTime,
+        });
+      }
+    }
+ 
+    // Validate password
+    const isValidPassword = await bcrypt.compare(password, user.password);
+ 
+    if (!isValidPassword) {
+      // Increment attempts
+      user.loginAttempts = (user.loginAttempts || 0) + 1;
+ 
+      // Determine lock time based on the *new* total attempts
+      const lockTime = getLockTime(user.loginAttempts);
+ 
+      // If the user meets the minimum attempts to be locked (5 or more)
+      if (lockTime > 0 && user.loginAttempts >= LOCKOUT_CONFIG[0].attempts) {
+        user.lockUntil = Date.now() + lockTime;
+        await user.save();
+        return res.status(403).json({
+          success: false,
+          message: "Account locked due to multiple failed login attempts.",
+          remainingTime: lockTime / 1000, // lock time in seconds
+        });
+      }
+ 
+      await user.save();
+      return res.status(400).json({
+        success: false,
+        message: "Password not matched!",
+        remainingAttempts:
+          LOCKOUT_CONFIG.find((config) => user.loginAttempts <= config.attempts)
+            ?.attempts - user.loginAttempts,
+      });
+    }
+ 
+    // Check for password expiry
+    if (user.passwordLastChanged) {
+      const passwordLastChanged = new Date(user.passwordLastChanged);
+      const passwordExpiryDate = new Date(
+        passwordLastChanged.setDate(passwordLastChanged.getDate() + PASSWORD_EXPIRY_DAYS)
+      );
+ 
+      if (new Date() > passwordExpiryDate) {
+        return res.status(400).json({
+          success: false,
+          message: "Password has expired. Please reset your password.",
+        });
+      }
+    }
+ 
+    // If password is correct, reset attempts & lock
+    user.loginAttempts = 0;
+    user.lockUntil = null;
+   // user.isLoggedIn = true;
+    // console.log(`User ${user.email} is logging in. isLoggedIn set to ${user.isLoggedIn}`);
+    await user.save();
+ 
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "2h",
+    });
+ 
+    res.status(200).json({
+      success: true,
+      message: "User logged in successfully!",
+      token,
+      userData: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        isAdmin: user.isAdmin,
+        //isLoggedIn: user.isLoggedIn,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error!",
+    });
+  }
+};
 
 //Forgot Password by using phone number
 const forgotPassword = async (req,res) => {
@@ -195,8 +333,8 @@ const forgotPassword = async (req,res) => {
     }
 }
 
-//veify OTP and set new pswd
 
+//veify OTP and set new pswd
 const verifyOtpAndSetPassword= async (req,res)=>{
     //get data 
     const {phone,otp,newPassword}=req.body;
@@ -207,9 +345,7 @@ const verifyOtpAndSetPassword= async (req,res)=>{
             "message" : "Please provide all fields!"
         })
     }
-
     try{
-
         //finding existing user with phone number
         const user=await userModel.findOne({phone : phone})
        
@@ -220,7 +356,6 @@ const verifyOtpAndSetPassword= async (req,res)=>{
                 "message" : "Invalid OTP!"
             })
         }
-
         //comparing expiery
         if(user.resetPasswordExpires<Date.now()){
             return res.status(400).json({
@@ -228,7 +363,6 @@ const verifyOtpAndSetPassword= async (req,res)=>{
                 "message" : "OTP Expired!"
             })
         }
-        
         //hashing password
         const randomSalt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(newPassword,randomSalt)
@@ -236,8 +370,6 @@ const verifyOtpAndSetPassword= async (req,res)=>{
         //set new password
         user.password=hashedPassword;
         await user.save();
-
-
         //sucess
         res.status(200).json({
             "success" : true,
