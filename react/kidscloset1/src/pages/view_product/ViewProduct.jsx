@@ -139,7 +139,7 @@ const ViewProduct = () => {
         <div className="row">
           <div className="col-md-6">
             <Image
-              src={`http://localhost:5000/products/${product.productImage}`}
+              src={`https://localhost:5000/products/${product.productImage}`}
               alt={product.productName}
               className="img-fluid product-image"
               preview={false}

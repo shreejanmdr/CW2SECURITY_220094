@@ -250,7 +250,7 @@ const MyCart = () => {
     //publicKey: "public_key_47e55edd8b884438971765e84a6e1ec2",
     productIdentity: "1234567890",
     productName: "Cart Items",
-    productUrl: "http://localhost:3000/cart",
+    productUrl: "https://localhost:3000/cart",
     paymentPreference: [
       "KHALTI",
       "EBANKING",
@@ -391,10 +391,10 @@ const MyCart = () => {
                 >
                   <Image
                     width={120}
-                    src={`http://localhost:5000/products/${cart.productId.productImage}`}
+                    src={`https://localhost:5000/products/${cart.productId.productImage}`}
                     alt={cart.productName}
                     preview={{
-                      src: `http://localhost:5000/products/${cart.productId.productImage}`,
+                      src: `https://localhost:5000/products/${cart.productId.productImage}`,
                     }}
                   />
                   <ItemDetails>
