@@ -11,7 +11,8 @@ import PasswordStrengthBar from "react-password-strength-bar";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const siteKey = "6Lfdab8qAAAAADzTjd87esA4qUA1ezYJs5XLim_D"; // Your reCAPTCHA site key
+  // reCAPTCHA site key
+  const siteKey = "6Lfdab8qAAAAADzTjd87esA4qUA1ezYJs5XLim_D"; 
 
   // State for form fields
   const [name, setName] = useState("");
