@@ -2,7 +2,7 @@ import axios from "axios";
 
 // creating backend Config!
 const Api = axios.create({
-    baseURL : "http://localhost:5000",
+    baseURL : "https://localhost:5000",
     withCredentials : true,
     headers : {
         "Content-Type" : "multipart/form-data"
@@ -35,8 +35,14 @@ export const testApi = () => Api.get('/test')
 // Register Api
 export const registerUserApi = (data) => Api.post('/api/user/create', data)
 
-// login api
-export const loginUserApi = (data) => Api.post('/api/user/login', data)
+// // login api
+// export const loginUserApi = (data) => Api.post('/api/user/login', data)
+export const loginUserApi = (data) => {
+  return axios.post("https://localhost:5000/api/user/login", data, {
+    // or your actual endpoint
+    validateStatus: () => true,
+  });
+};
 
 // create prodcuct API
 export const createProductApi = (data) => Api.post('/api/product/create', data)
