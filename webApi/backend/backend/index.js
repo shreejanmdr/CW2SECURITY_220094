@@ -41,7 +41,7 @@ app.get('/test', (req,res)=>{
     res.send("Test API is Working!...")
 })
 
-// http://localhost:5000/test
+// https://localhost:5000/test
 
 // configuring Routes of User
 app.use('/api/user', require('./routes/userRoutes'));
@@ -49,7 +49,7 @@ app.use('/api/product', require('./routes/productRoutes'));
 // app.use('/api/cart', require('./routes/cartRoutes'));
 
 
-http://localhost:5000/api/user/create
+https://localhost:5000/api/user/create
 //cart
 app.use("/api/cart", require('./routes/cartRoutes'));
 // Use favouritesRoutes for /api/favourites endpoints
